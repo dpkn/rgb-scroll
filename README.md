@@ -12,7 +12,7 @@ How to use:
       splitter.split('.rgb-split')
 ```
 
-*Optional*: Set the element which will hold the svgFilters (defauly is <body>)
+*Optional*: Set the element which will hold the svgFilters (defauly is ``<body/>``)
 
 ```JavaScript
   let svgParent = document.querySelector('#svgContainer');
