@@ -1,4 +1,3 @@
-
 let svgFilter = `<svg style="opacity:0;width:0;height:0;">
       <filter id="red">
         <feColorMatrix
@@ -30,9 +29,7 @@ let svgFilter = `<svg style="opacity:0;width:0;height:0;">
     </svg>`;
 
 class RGBSplitter {
-    
-  constructor(filterContainer = document.body){
-
+  constructor(filterContainer = document.body) {
     // Inject SVG filter into the HTML document
     let template = document.createRange().createContextualFragment(svgFilter);
     filterContainer.appendChild(template);
@@ -40,11 +37,13 @@ class RGBSplitter {
     this.lastStepTime = 0;
     this.scrollPosition = 0;
     this.splittedImages = [];
-    
+
     this.targetXOffset = 0;
     this.maxXOffset = 15;
 
-    window.addEventListener('scroll',()=>{ this.onScroll() });
+    window.addEventListener('scroll', () => {
+      this.onScroll();
+    });
 
     this.step();
   }
@@ -52,7 +51,7 @@ class RGBSplitter {
   /**
    * Called on every scroll event. Sets the target offset to the amount scrolled.
    */
-  onScroll(){
+  onScroll() {
     this.targetXOffset = window.scrollY - this.scrollPosition;
 
     if (this.targetXOffset > this.maxXOffset) {
@@ -64,14 +63,13 @@ class RGBSplitter {
     this.scrollPosition = window.scrollY;
   }
 
-
   /**
    * Prepares one or mulitple <img />'s for splitting
    * @param {*} query A selector (e.g. class or ID) for one or more <img/> tags to split.
    */
-  split(query){
+  split(query) {
     let elements = document.querySelectorAll(query);
-    for(let originalElement of elements){
+    for (let originalElement of elements) {
       let splittedImage = new RGBSplittedImage(originalElement);
       this.splittedImages.push(splittedImage);
     }
@@ -80,22 +78,24 @@ class RGBSplitter {
   /**
    * Step is called every draw frame. Updates all splitted images.
    */
-  step(timestamp){
-      let deltaTime = timestamp - this.lastStepTime;
-      if (isNaN(deltaTime)) deltaTime = 0;
+  step(timestamp) {
+    let deltaTime = timestamp - this.lastStepTime;
+    if (isNaN(deltaTime)) deltaTime = 0;
 
-      for(let image of this.splittedImages){
-        image.step(deltaTime, this.targetXOffset);
-      }
+    for (let image of this.splittedImages) {
+      image.step(deltaTime, this.targetXOffset);
+    }
 
-      // If user stopped scrolling, target offset becomes zero.
-      if (window.scrollY === this.scrollPosition) {
-        this.targetXOffset = 0;
-      }
+    // If user stopped scrolling, target offset becomes zero.
+    if (window.scrollY === this.scrollPosition) {
+      this.targetXOffset = 0;
+    }
 
-     this.lastStepTime = timestamp;
+    this.lastStepTime = timestamp;
 
-     requestAnimationFrame((timestamp)=>{this.step(timestamp)});
+    requestAnimationFrame((timestamp) => {
+      this.step(timestamp);
+    });
   }
 }
 
@@ -134,7 +134,7 @@ class RGBSplittedImage {
   /**
    * Is called every frame by the RGBSplitter class
    * @param {*} deltaTime Amount of time since last call
-   * @param {*} targetXOffset Amount of pixels to move to. 
+   * @param {*} targetXOffset Amount of pixels to move to.
    */
   step(deltaTime, targetXOffset) {
     let speed = this.easingSpeed * deltaTime * 0.02;
