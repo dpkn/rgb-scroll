@@ -1,24 +1,26 @@
-.rgb-splitted{
-    position: relative;
+.rgb-splitted {
+  position: relative;
 }
-.rgb-splitted .red,.rgb-splitted .green,.rgb-splitted .blue{
-  position:absolute;
-  width:100%;
-  top:0;
-  left:0;
-  
-  mix-blend-mode:screen;
+.rgb-splitted .red,
+.rgb-splitted .green,
+.rgb-splitted .blue {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+
+  mix-blend-mode: screen;
   display: block;
 }
-.rgb-splitted .invisible{
-    opacity:0;
+.rgb-splitted .invisible {
+  opacity: 0;
 }
-.rgb-splitted .red{
-   filter: url('#red');
+.rgb-splitted .red {
+  filter: url('#red');
 }
-.rgb-splitted .green{
-   filter: url('#green');
+.rgb-splitted .green {
+  filter: url('#green');
 }
-.rgb-splitted .blue{
-   filter: url('#blue');
+.rgb-splitted .blue {
+  filter: url('#blue');
 }
