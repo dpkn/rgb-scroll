@@ -45,6 +45,17 @@ class RGBSplitter {
       this.onScroll();
     });
 
+    this.observer = new IntersectionObserver((entries)=>{
+      for(let entry of entries){
+
+        var result = this.splittedImages.find((obj) => {
+          return obj.html === entry.target;
+        });
+        result.isIntersecting = entry.isIntersecting;
+
+      }
+    });
+
     this.step();
   }
 
@@ -72,6 +83,7 @@ class RGBSplitter {
     for (let originalElement of elements) {
       let splittedImage = new RGBSplittedImage(originalElement);
       this.splittedImages.push(splittedImage);
+      this.observer.observe(splittedImage.html);
     }
   }
 
@@ -104,6 +116,7 @@ class RGBSplittedImage {
     this.currentXOffset = 0;
     this.easingSpeed = 6;
     this.colorNodes = {};
+    this.isIntersecting = false;
 
     this.html = this.generateSplitHTML(originalElement);
     originalElement.parentNode.replaceChild(this.html, originalElement);
@@ -137,6 +150,8 @@ class RGBSplittedImage {
    * @param {*} targetXOffset Amount of pixels to move to.
    */
   step(deltaTime, targetXOffset) {
+    if(!this.isIntersecting) return;
+
     let speed = this.easingSpeed * deltaTime * 0.02;
     if (speed > 1) speed = 1; // I think the glitch problem lies here, because it becomes to slow/clunky and needs a higer step. But if i remove this everything spaces out.
 
