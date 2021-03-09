@@ -1,5 +1,5 @@
 ## RGBSplit Effect for Images using SVG Filters
-Demo: https://rgbscroll2.surge.sh
+Demo: https://rgbscroll2.surge.sh/example
 
 
 How to use:
