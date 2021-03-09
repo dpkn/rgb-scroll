@@ -153,7 +153,7 @@ class RGBSplittedImage {
     if(!this.isIntersecting) return;
 
     let speed = this.easingSpeed * deltaTime * 0.02;
-    if (speed > 1) speed = 1; // I think the glitch problem lies here, because it becomes to slow/clunky and needs a higer step. But if i remove this everything spaces out.
+    if (speed > 1.5) speed = 1.5; // I think the glitch problem lies here, because it becomes to slow/clunky and needs a higer step. But if i remove this everything spaces out.
 
     this.currentXOffset += (targetXOffset - this.currentXOffset) * speed;
 
